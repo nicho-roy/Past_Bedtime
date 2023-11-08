@@ -7,15 +7,13 @@ public class Player extends Actor
 
 {
     public int tick=0;
-    //public int walkTick=0;
+    public int walkTick=0;
     public int runTick=0;
     public int x;
     public int y;
     public String face; 
     public int sprint=0;
-    public int stam=50;
-    
-    public int door;
+    public int stam=0;
     /**
      * Act - do whatever the player wants to do. This method is called whenever the 'Act' or 'Run' button gets pressed in the environment.
      */
@@ -25,61 +23,13 @@ public class Player extends Actor
         //tick();
         //movement();
         if (stam>0) {
-            sprint();
-        } else {
-            sprint=0;
+        sprint();
         }
-        getPosX();
-        getPosY();
         moves();
+        getPos();
         isMove();
         resetSprite();
         stamina();
-        transitions();
-    }
-    
-    public void transitions() {
-        /*
-         * if (Greenfoot.isKeyDown("l")) {
-            door=1;
-            Greenfoot.setWorld( new  hallway1(this));
-        }
-        if (Greenfoot.isKeyDown("k")) {
-            door=2;
-            Greenfoot.setWorld( new  basementSpawn(this));
-        }
-        */
-        
-        //Door door = (Door) getOneIntersectingObject(Door.class);
-        List<Door> doors = getObjectsInRange(40, Door.class);
-        if (doors.size() == 0) return;
-        Door door = doors.get(0);
-        
-        if (door != null) {
-            if (door.id == 1) {
-                Greenfoot.setWorld( new  hallway1(this, door));
-            }
-            if (door.id == 2) {
-                Greenfoot.setWorld( new  basementSpawn(this, door));
-            }
-        }
-    }
-    
-    private void sprint() {
-        if (Greenfoot.isKeyDown("shift")) {
-            sprint=3;  //sprint multiplier
-            stam--;    //stamina loss
-        }
-        else {
-            sprint=0;
-        }
-    }
-    public void stamina() {
-        if (stam<800 && runTick>200) {
-            stam+=50;
-            runTick=0;
-        }
-        runTick++;
     }
     public void moves() {
         if (Greenfoot.isKeyDown("w")) {
@@ -161,24 +111,27 @@ public class Player extends Actor
             setImage("PlayerRightIdle.png");
         }
     }
-    public int getPosX() {
-        x =getX();
-        return x;
+    private void sprint() {
+        if (Greenfoot.isKeyDown("shift")) {
+            sprint=3;  //sprint multiplier
+            stam=0;//stamina loss
+            
+        }
+        else {
+            sprint=0;
+        }
     }
-    public int getPosY() {
-        y =getY();
-        return y;
+    public void stamina() {
+        runTick++;
+        if (stam<50 && runTick>20) {
+            stam++;
+            runTick=0;
+        }
     }
-    
-    
-    /*
-     * public void getPos() {
+    public void getPos() {
         x = getX();
         y = getY();
     }
-     */
-    
-    
     
     
     /*
@@ -217,7 +170,7 @@ public class Player extends Actor
             walkTick=0;
         }
     }
+    
+    }
     */
-    
-    
 }

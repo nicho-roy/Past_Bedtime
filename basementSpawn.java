@@ -11,7 +11,7 @@ public class basementSpawn extends World
     /**
      * Constructor for objects of class livingRoom.
      */
-    public basementSpawn(Player playerObj, Door door)
+    public basementSpawn()
     {
         super(1000, 800, 1);
         prepare();
@@ -22,12 +22,7 @@ public class basementSpawn extends World
      */
     private void prepare()
     {
-        Player hero = new Player();
-        addObject(hero,510,363);
-        Entity entity = new Entity();
-        addObject(entity,156,133);
-        Door door1 = new Door(1);
-        door1.setRotation(90);
-        addObject(door1, 990,100);
+        Player Player = new Player();
+        addObject(Player,510,363);
     }
 }
